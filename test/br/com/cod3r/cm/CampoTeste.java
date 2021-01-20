@@ -95,7 +95,6 @@ public class CampoTeste {
 	}
 	
 	
-	
 	@Test
 	void testeAbrirMinadoMarcado() {
 		campo.alternarMarcacao();
@@ -106,10 +105,45 @@ public class CampoTeste {
 	@Test
 	void testeAbrirMinadoNaoMarcado() {
 		campo.minar();
-		assertThrows(ExplosaoException.class, () -> {campo.abrir();}
+		assertThrows(ExplosaoException.class, () -> {
+			campo.abrir();
+		}
 				
 		);
 	}
+	
+	@Test
+	void testeAbrirCamposVizinhos1() {
+		
+		Campo campo11 = new Campo(1,1);
+		Campo campo22 = new Campo(2,2);
+		campo22.adicionarVizinho(campo11);
+		
+		campo.adicionarVizinho(campo22);
+		campo.abrir();
+		
+		assertTrue(campo.isAberto() && campo11.isAberto());
+		
+	}
+	
+	@Test
+	void testeAbrirCamposVizinhos2() {
+		
+		Campo campo11 = new Campo(1,1);
+		Campo campo12 = new Campo(1,1);
+		campo12.minar();
+		
+		Campo campo22 = new Campo(2,2);
+		campo22.adicionarVizinho(campo11);
+		campo22.adicionarVizinho(campo12);
+		
+		campo.adicionarVizinho(campo22);
+		campo.abrir();
+		
+		assertTrue(campo.isAberto() && campo11.isFechado());
+		
+	}
+	
 	
 	
 
