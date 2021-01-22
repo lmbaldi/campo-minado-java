@@ -46,11 +46,16 @@ public class TabuleiroConsole {
 		try {
 			
 			while(!tabuleiro.objetivoAlcancado()) {
+				//mostra o tabuleiro
 				System.out.println(tabuleiro);
+				//pega os valores das coordenadas
 				String digitado = capturarValorDigitado("Digite (x,y): ");
+				//transforma o valor da coordena para inteiro
 				Iterator<Integer> xy = Arrays.stream(digitado.split(","))
 					.map(e -> Integer.parseInt(e.trim())).iterator();
+				//pega a informacao abrir, marcar ou desmarcar
 				digitado = capturarValorDigitado("1 - Abrir ou 2 - (Des)marcar");
+				
 				if("1".equals(digitado)) {
 					tabuleiro.abrir(xy.next(), xy.next());
 				} else if ("2".equals(digitado)) {
@@ -61,6 +66,7 @@ public class TabuleiroConsole {
 			System.out.println("Voce ganhou!");
 			
 		} catch (ExplosaoException e) {
+			System.out.println(tabuleiro);
 			System.out.println("Voce perdeu!");
 		}
 	}
